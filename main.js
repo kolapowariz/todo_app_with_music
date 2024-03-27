@@ -22,21 +22,40 @@ function app(params) {
   ]);
 
   function createTodo(todo) {
-    let item, text;
-    let deleteBtn;
+    let item, text, deleteBtn, editBtn;
     item = mk('li', {className: 'todo-items'}, [
-      (text = mk('span', {}, [todo.text])), (deleteBtn = mk('button', {className: 'delete'}, ['Delete']))
+      (text = mk('span', {}, [todo.text])),
+      (deleteBtn = mk('button', {className: 'delete'}, ['Delete'])),
+      (editBtn = mk('button', {className: 'edit'}, ['Edit']))
     ]);
 
     let audio = new Audio('./vvv-2.mp3');
 
-    deleteBtn.on('click', function() {
+    deleteBtn.on('click', () => {
       audio.play();
       state.todos = state.todos.filter(t => t.id !== todo.id);
       item.remove();
     });
 
+    editBtn.on('click', () => {
+      audio.play();
+      let input = mk('input', {value: todo.text});
+      item.prepend(input);
+      input.focus();
 
+      input.on('blur', () => {
+        todo.text = input.value;
+        text.textContent = input.value;
+        input.remove();
+      })
+
+      input.on('keypress', (e)=> {
+        if(e.key === 'Enter') {
+          input.blur();
+        }
+      })
+
+    })
 
     return item;
   }
