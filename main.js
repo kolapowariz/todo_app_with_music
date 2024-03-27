@@ -1,5 +1,6 @@
 import './utilis/bling';
 import './style.css';
+import audioFile from '/vvv-2.mp3'
 
 function app(params) {
   // state
@@ -11,7 +12,7 @@ function app(params) {
   }
 
   // console.log(ui);
-  
+
   return mk('div', {id: 'app'}, [
     mk('h1', null, ['Todo App: AltSchool Frontend Version']),
     (ui.form = mk('form', null, [
@@ -29,7 +30,7 @@ function app(params) {
       (editBtn = mk('button', {className: 'edit'}, ['Edit']))
     ]);
 
-    let audio = new Audio('./vvv-2.mp3');
+    let audio = new Audio(audioFile);
 
     deleteBtn.on('click', () => {
       audio.play();
@@ -73,7 +74,7 @@ function app(params) {
 
     state.todos.push(todo);
     // console.log(state.todos);
-    
+
 
     ui?.todos.prepend(createTodo(todo));
   }
@@ -87,4 +88,4 @@ function render(params) {
 
 render();
 
-// add delete and update 
+// add delete and update
